@@ -1,0 +1,15 @@
+version: '2'
+services:
+  web-server:
+    build: ./nginx
+    ports:
+      - 8080:80 # => Web server'a ait 80 portu dışarıya 8080 portundan aktarıldı. 
+    volumes:
+      - ./:/usr/share/nginx/html # => Nginx çalışma dizini klasörümüzde bulunan "www" diziniyle ilişkilendirildi.
+      - ./logs:/var/log/nginx # => Nginx log dizini, projemizin log dizini olarak ilişkilendirildi.
+    links: 
+      - php
+  php:
+    image: php:7.1-fpm
+    volumes: 
+      - ./:/var/www/html
